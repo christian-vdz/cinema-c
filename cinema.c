@@ -35,10 +35,14 @@ int main(int argc, char *argv[])
 
     char shmid_str[20]; /* Pour conversion du shmid (int) en chaine */
     char semid_str[20]; /* Pour conversion du semid (int) en chaine */
+    char i_str[10]; /* Pour conversion du i (int) en chaine */
 
     int * mem; /* Adresse du segment de mémoire partagée */
 
     char param_gnome_terminal[80];
+
+    int i;
+
 
     if ( argc != 4 ) {
         fprintf(stderr, "Usage : %s nombre_caisses nom_film nombre_places\n", argv[0]);
@@ -78,8 +82,9 @@ printf("DEBUG : cinema : shmid=%d\n", shmid);
     /* Conversion des shmid et semid  (int) en chaine pour appel programme externe */
     sprintf(shmid_str, "%d", shmid);
     sprintf(semid_str, "%d", semid);
+    sprintf(i_str, "%d", i);
 
-    int i;
+    
 
     for (i = 0; i < nombre_caisses; i++) {
         /* création du fils entrée */
@@ -95,7 +100,8 @@ printf("DEBUG : cinema : shmid=%d\n", shmid);
             /*
             printf("Je suis le fils caisse, je vais faire execl dans 10s shmid_str=%s, semid_str=%s\n", shmid_str, semid_str);
             */
-            execl("caisse", i, shmid_str, semid_str, NULL);
+            sprintf(i_str, "%d", i);
+            execl("caisse", "caisse" , shmid_str, semid_str, i_str, NULL);
         }
     }
 }
