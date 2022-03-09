@@ -67,7 +67,7 @@ mem=attacher_segment_memoire(mem, &shmid);
 
 while (1) {
   attente_aleatoire(delais);
-  printf("Une place est prise par la caisse %s\n", argv[3]);
+  printf("Une place est prise par la caisse %s\n", argv[3]+1);
   while (nombre_places(mem, semid) == false) {
     sleep(1);  
   }
