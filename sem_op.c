@@ -67,5 +67,6 @@ int creer_initialiser_semaphore(key_t cle, int * semid)  {
     perror("semctl");
     exit(2);
   }
+  return(0);
 }
 
