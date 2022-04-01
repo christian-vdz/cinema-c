@@ -79,19 +79,23 @@ printf("DEBUG : cinema : shmid=%d\n", shmid);
     sprintf(shmid_str, "%d", shmid);
     sprintf(semid_str, "%d", semid);
 
-    /* création du fils entrée */
-    pid_caisse = fork();
+    int i;
 
-    if (pid_caisse == -1) {
-        /* Erreur */
-        perror("pb fork sur création entrée");
-        return(1);
-    }
+    for (i = 0; i < nombre_caisses; i++) {
+        /* création du fils entrée */
+        pid_caisse = fork();
 
-    if (pid_caisse == 0) {
-        /*
-        printf("Je suis le fils caisse, je vais faire execl dans 10s shmid_str=%s, semid_str=%s\n", shmid_str, semid_str);
-        */
-        execl("caisse", "caisse", shmid_str, semid_str, NULL);
+        if (pid_caisse == -1) {
+            /* Erreur */
+            perror("pb fork sur création entrée");
+            return(1);
+        }
+
+        if (pid_caisse == 0) {
+            /*
+            printf("Je suis le fils caisse, je vais faire execl dans 10s shmid_str=%s, semid_str=%s\n", shmid_str, semid_str);
+            */
+            execl("caisse", i, shmid_str, semid_str, NULL);
+        }
     }
 }
