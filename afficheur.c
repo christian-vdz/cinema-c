@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
     sleep (5);
   }
 
-  /* Si le while s'est terminée c'est qu'il n'y a plus de places, on affiche un message et on supprime le sémaphore */
+  /* Si le while s'est terminé c'est qu'il n'y a plus de places, on affiche un message et on supprime le sémaphore */
   printf("---- Il n'y a plus de places pour le film %s ----\n", nom_film);
   semctl(semid, 0, IPC_RMID);
 
