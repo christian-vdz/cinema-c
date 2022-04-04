@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <sys/ipc.h>
 #include <sys/sem.h>
+#include <sys/shm.h>
 #include <sys/types.h>
 
 extern int * attacher_segment_memoire();
@@ -35,6 +36,10 @@ int main(int argc, char *argv[]) {
   /* Si le while s'est terminé c'est qu'il n'y a plus de places, on affiche un message et on supprime le sémaphore */
   printf("---- Il n'y a plus de places pour le film %s ----\n", nom_film);
   semctl(semid, 0, IPC_RMID);
+
+  /* Détachement et destruction du segment mémoire */
+  shmdt(mem);
+  shmctl(shmid, IPC_RMID, NULL);
 
   return(0);
 }

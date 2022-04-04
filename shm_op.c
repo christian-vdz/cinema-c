@@ -29,6 +29,5 @@ int * attacher_segment_memoire(int * mem, int *shmid) {
   else {
     return(mem);
   }
-
 }
 
